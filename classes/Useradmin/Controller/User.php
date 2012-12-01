@@ -216,7 +216,7 @@ class Useradmin_Controller_User extends Controller_App {
 				{
 					throw new ORM_Validation_Exception("Invalid option checks");
 				}
-				Auth::instance()->register($_POST, TRUE);
+				Auth::instance()->register($_POST);
 				// sign the user in
 				Auth::instance()->login($_POST['username'], $_POST['password']);
 				// redirect to the user account
@@ -257,7 +257,7 @@ class Useradmin_Controller_User extends Controller_App {
 		}
 		// get the user id
 		$id = Auth::instance()->get_user()->id;
-		$user = ORM::factory('user', $id);
+		$user = ORM::factory('User', $id);
 		// KO3 ORM is lazy loading, which means we have to access a single field to actually have something happen.
 		if ($user->id != $id)
 		{
@@ -390,7 +390,7 @@ class Useradmin_Controller_User extends Controller_App {
 		$this->template->title = __('Forgot password');
 		if (isset($_POST['reset_email']))
 		{
-			$user = ORM::factory('user')->where('email', '=', $_POST['reset_email'])->find();
+			$user = ORM::factory('User')->where('email', '=', $_POST['reset_email'])->find();
 			// admin passwords cannot be reset by email
 			if (is_numeric($user->id) && ( $user->username != 'admin' ))
 			{
@@ -457,7 +457,7 @@ class Useradmin_Controller_User extends Controller_App {
 			// make sure that the reset_token has exactly 32 characters (not doing that would allow resets with token length 0)
 			if (( strlen($_REQUEST['reset_token']) == 32 ) && ( strlen(trim($_REQUEST['reset_email'])) > 1 ))
 			{
-				$user = ORM::factory('user')
+				$user = ORM::factory('User')
 					->where('email', '=', $_REQUEST['reset_email'])
 					->and_where('reset_token', '=', $_REQUEST['reset_token'])
 					->find();
@@ -702,7 +702,7 @@ class Useradmin_Controller_User extends Controller_App {
 			if (! Auth::instance()->logged_in())
 			{
 				// Instantiate a new user
-				$user = ORM::factory('user');
+				$user = ORM::factory('User');
 				// fill in values
 				// generate long random password (maximum that passes validation is 42 characters)
 				$password = $user->generate_password(42);

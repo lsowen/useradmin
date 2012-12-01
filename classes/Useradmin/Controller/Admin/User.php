@@ -42,7 +42,7 @@ class Useradmin_Controller_Admin_User extends Controller_App {
 		// set the template title (see Controller_App for implementation)
 		$this->template->title = __('User administration');
 		// create a user
-		$user = ORM::factory('user');
+		$user = ORM::factory('User');
 		// This is an example of how to use Kohana pagination
 		// Get the total count for the pagination
 		$total = $user->count_all();
@@ -87,12 +87,12 @@ class Useradmin_Controller_Admin_User extends Controller_App {
 			if (is_numeric($id))
 			{
 				// EDIT: load the model with ID
-				$user = ORM::factory('user', $id);
+				$user = ORM::factory('User', $id);
 			}
 			else
 			{
 				// CREATE: do not specify id
-				$user = ORM::factory('user');
+				$user = ORM::factory('User');
 			}
 			if (empty($_POST['password']) || empty($_POST['password_confirm']))
 			{
@@ -180,7 +180,7 @@ class Useradmin_Controller_Admin_User extends Controller_App {
 		if (is_numeric($id))
 		{
 			// instantiatiate a new model
-			$user = ORM::factory('user', $id);
+			$user = ORM::factory('User', $id);
 			$view->set('data', $user->as_array());
 			// retrieve roles into array
 			$roles = array();
@@ -217,7 +217,7 @@ class Useradmin_Controller_Admin_User extends Controller_App {
 	{
 		// set the template title (see Controller_App for implementation)
 		$this->template->title = __('Delete user');
-		$user = ORM::factory('user', $id);
+		$user = ORM::factory('User', $id);
 		// check for confirmation
 		if (is_numeric($id) && isset($_POST['confirmation']) && $_POST['confirmation'] == 'Y')
 		{
