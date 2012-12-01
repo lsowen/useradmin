@@ -44,8 +44,8 @@ class Useradmin_Controller_User extends Controller_App {
     public function before(){
         $baseUrl = URL::base(true);
         if(substr($this->request->referrer(),0,strlen($baseUrl)) == $baseUrl){
-            $urlPath = ltrim(parse_url($this->request->referrer(),PHP_URL_PATH),'/');
-            $processedRef = Request::process_uri($urlPath);
+	    $refRequest = new Request($this->request->referrer(), array(), FALSE);
+            $processedRef = Request::process($refRequest);
             $referrerController = Arr::path(
                 $processedRef,
                 'params.controller',
