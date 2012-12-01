@@ -163,7 +163,7 @@ class Useradmin_Controller_Admin_User extends Controller_App {
 				// message: save success
 				Message::add('success', __('Values saved.'));
 				// redirect and exit
-				Request::current()->redirect('admin_user/index');
+				$this->redirect('admin_user/index', 302);
 				return;
 			}
 			else
@@ -236,7 +236,7 @@ class Useradmin_Controller_Admin_User extends Controller_App {
 				Message::add('success', __('User is already deleted.'));
 			}
 			// redirect and exit
-			Request::current()->redirect('admin_user/index');
+			$this->redirect('admin_user/index', 302);
 			return;
 		}
 		// display confirmation
