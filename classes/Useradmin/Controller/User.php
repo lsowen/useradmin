@@ -42,7 +42,7 @@ class Useradmin_Controller_User extends Controller_App {
 	// logout is also public to avoid confusion (e.g. easier to specify and test post-logout page)
 
     public function before(){
-        $baseUrl = Url::base(true);
+        $baseUrl = URL::base(true);
         if(substr($this->request->referrer(),0,strlen($baseUrl)) == $baseUrl){
             $urlPath = ltrim(parse_url($this->request->referrer(),PHP_URL_PATH),'/');
             $processedRef = Request::process_uri($urlPath);
