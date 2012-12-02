@@ -638,7 +638,7 @@ class Useradmin_Controller_User extends Controller_App {
 					if (Auth::instance()->logged_in() && Auth::instance()->get_user()->id == $user->id)
 					{
 						// found: "merge" with the existing user
-						$user_identity = ORM::factory('user_identity');
+						$user_identity = ORM::factory('User_Identity');
 						$user_identity->user_id = $user->id;
 						$user_identity->provider = $provider_name;
 						$user_identity->identity = $provider->user_id();
@@ -682,7 +682,7 @@ class Useradmin_Controller_User extends Controller_App {
 		{
 			// check for previously connected user
 			$uid = $provider->user_id();
-			$user_identity = ORM::factory('user_identity')
+			$user_identity = ORM::factory('User_Identity')
 				->where('provider', '=', $provider_name)
 				->and_where('identity', '=', $uid)
 				->find();
@@ -732,7 +732,7 @@ class Useradmin_Controller_User extends Controller_App {
 					));
 					$user->add('roles', $login_role);
 					// create user identity after we have the user id
-					$user_identity = ORM::factory('user_identity');
+					$user_identity = ORM::factory('User_Identity');
 					$user_identity->user_id  = $user->id;
 					$user_identity->provider = $provider_name;
 					$user_identity->identity = $provider->user_id();

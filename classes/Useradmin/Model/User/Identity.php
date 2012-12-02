@@ -3,8 +3,10 @@
 class Useradmin_Model_User_Identity extends ORM {
 
 	protected $_belongs_to = array(
-		'user' => array()
+		'user' => array('model' => 'User')
 	);
+
+	protected $_table_name = 'user_identity';
 
 	/**
 	 * Rules for the user identity.
